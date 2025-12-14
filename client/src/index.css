@@ -1,0 +1,68 @@
+/* client/src/index.css */
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Force these colors */
+  color-scheme: light; 
+  color: #213547;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* FORCE WHITE BACKGROUND ON THE WHOLE PAGE */
+body {
+  margin: 0;
+  display: block; /* Fixes centering issues */
+  place-items: start; /* Fixes centering issues */
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f4f6f8 !important; /* Light Gray */
+  color: #333 !important; /* Dark Text */
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: #2e7d32; /* Green */
+  text-align: center;
+}
+
+/* BUTTONS */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9; /* Light button default */
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+/* CARD STYLING */
+div[style*="border"] {
+  background-color: white !important;
+  color: black !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* INPUT FORMS */
+input {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid #ccc !important;
+  padding: 10px;
+  border-radius: 5px;
+}

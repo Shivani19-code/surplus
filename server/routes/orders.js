@@ -1,101 +1,89 @@
-// server/routes/orders.js
+// FILE: server/routes/orders.js
 const express = require('express');
 const router = express.Router();
-const { ObjectId } = require('mongodb');
-const auth = require('../utils/authMiddleware');
+const Order = require('../models/Order');
+const Listing = require('../models/Listing');
 
-// POST /api/orders - place order (student)
-router.post('/', auth, async (req, res) => {
+// 1. PLACE ORDER (You already have this working)
+// 1. PLACE ORDER
+router.post('/place', async (req, res) => {
   try {
-    if (!req.user) return res.status(401).json({ error: 'No token' });
+    const { studentId, listingId, restaurantId, price, itemTitle } = req.body; // <--- Expect itemTitle
 
-    const db = req.app.locals.db;
-    const userId = req.user.userId;
-    const { listingId, quantity = 1 } = req.body;
+    const newOrder = new Order({
+      studentId,
+      listingId,
+      restaurantId,
+      totalPrice: price,
+      itemTitle: itemTitle, // <--- Save it!
+      status: 'ordered'
+    });
 
-    if (!ObjectId.isValid(listingId)) return res.status(400).json({ error: 'Invalid listing id' });
-    const listing = await db.collection('listings').findOne({ _id: new ObjectId(listingId) });
-    if (!listing) return res.status(404).json({ error: 'Listing not found' });
+    await newOrder.save();
 
-    // Atomically decrement quantity using findOneAndUpdate
-    const updated = await db.collection('listings').findOneAndUpdate(
-      { _id: listing._id, quantityAvailable: { $gte: quantity } },
-      { $inc: { quantityAvailable: -quantity } },
-      { returnDocument: 'after' }
-    );
-
-    if (!updated.value) {
-      return res.status(400).json({ error: 'Insufficient quantity' });
+    // Decrease quantity in the Listing
+    // We use findByIdAndUpdate just to be safe if listing exists
+    const Listing = require('../models/Listing');
+    const listing = await Listing.findById(listingId);
+    if (listing) {
+        listing.quantity = Math.max(0, listing.quantity - 1);
+        await listing.save();
     }
 
-    const order = {
-      studentId: new ObjectId(userId),
-      restaurantId: listing.restaurantId || null,
-      listingId: listing._id,
-      quantity,
-      totalAmount: (listing.price || 0) * quantity,
-      paymentStatus: 'pending',
-      status: 'placed',
-      createdAt: new Date()
-    };
-
-    const result = await db.collection('orders').insertOne(order);
-    res.status(201).json({ orderId: result.insertedId, listingAfter: updated.value });
+    res.status(201).json(newOrder);
   } catch (err) {
-    console.error('place order error:', err);
-    res.status(500).json({ error: 'Order failed' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// GET /api/orders/user - orders for logged-in user
-router.get('/user', auth, async (req, res) => {
+// 2. GET ORDERS (THIS IS THE FIX)
+// This route fetches orders and "populates" the details
+router.get('/user/:userId', async (req, res) => {
   try {
-    if (!req.user) return res.status(401).json({ error: 'No token' });
-
-    const db = req.app.locals.db;
-    const user = await db.collection('users').findOne({ _id: new ObjectId(req.user.userId) });
-    if (!user) return res.status(404).json({ error: 'User not found' });
-
-    let filter;
-    if (user.role === 'restaurant') {
-      filter = { restaurantId: user._id };
-    } else {
-      filter = { studentId: user._id };
-    }
-
-    const orders = await db.collection('orders').find(filter).sort({ createdAt: -1 }).toArray();
+    const orders = await Order.find({ studentId: req.params.userId })
+      .populate('listingId')      // Converts listingId -> Full Food Details
+      .populate('restaurantId');  // Converts restaurantId -> Full Restaurant Details
+      
     res.json(orders);
   } catch (err) {
-    console.error('get orders error:', err);
-    res.status(500).json({ error: 'Fetch orders failed' });
+    res.status(500).json({ error: err.message });
   }
 });
 
-// PUT /api/orders/:id/status - update order status (restaurant)
-router.put('/:id/status', auth, async (req, res) => {
+// 3. GET RESTAURANT ORDERS (Sales History)
+router.get('/restaurant/:restaurantId', async (req, res) => {
   try {
-    if (!req.user) return res.status(401).json({ error: 'No token' });
-    if (req.user.role !== 'restaurant') return res.status(403).json({ error: 'Only restaurants can update status' });
-
-    const id = req.params.id;
-    if (!ObjectId.isValid(id)) return res.status(400).json({ error: 'Invalid order id' });
-
-    const db = req.app.locals.db;
-    // Optionally ensure restaurant owns the order
-    const order = await db.collection('orders').findOne({ _id: new ObjectId(id) });
-    if (!order) return res.status(404).json({ error: 'Order not found' });
-    if (!order.restaurantId || order.restaurantId.toString() !== req.user.userId) {
-      return res.status(403).json({ error: 'Not your order' });
-    }
-
-    const { status } = req.body;
-    if (!status) return res.status(400).json({ error: 'Status required' });
-
-    const result = await db.collection('orders').updateOne({ _id: order._id }, { $set: { status } });
-    res.json({ modifiedCount: result.modifiedCount });
+    const orders = await Order.find({ restaurantId: req.params.restaurantId })
+      .populate('listingId')      // Get the Food Name
+      .populate('studentId', 'name email'); // Get the Student's Name & Email (Important for pickup!)
+      
+    res.json(orders);
   } catch (err) {
-    console.error('update order status error:', err);
-    res.status(500).json({ error: 'Status update failed' });
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 3. GET RESTAURANT ORDERS (Sales History)
+router.get('/restaurant/:restaurantId', async (req, res) => {
+  try {
+    const orders = await Order.find({ restaurantId: req.params.restaurantId })
+      .populate('listingId')      // Get the Food Name
+      .populate('studentId', 'name email'); // Get the Student's Name & Email
+      
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 4. UPDATE ORDER STATUS (Mark as Picked Up)
+router.put('/status/:orderId', async (req, res) => {
+  try {
+    const { status } = req.body;
+    await Order.findByIdAndUpdate(req.params.orderId, { status });
+    res.json({ message: "Status updated successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
