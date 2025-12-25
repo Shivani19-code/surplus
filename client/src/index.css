@@ -1,68 +1,58 @@
-/* =========================
-   GLOBAL BACKGROUND
-========================= */
-body {
-  background:body {
-  background: red !important;
+/* ===== GLOBAL RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-
-  font-family: 'Segoe UI', Arial, sans-serif;
+/* ===== BODY BACKGROUND (NO BLUE) ===== */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff1eb, #fce7f3);
   color: #1f2937;
 }
-
-/* =========================
-   MAIN PAGE CONTAINER
-========================= */
+/* ===== PAGE LAYOUT ===== */
 .page {
   max-width: 1200px;
-  margin: 30px auto;
+  margin: auto;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
-
-/* =========================
-   HEADER SECTION
-========================= */
+/* ===== HEADER ===== */
 .home-header {
-  background: linear-gradient(135deg, #2563eb, #9333ea);
-  padding: 25px 30px;
-  border-radius: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  padding: 25px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #14532d, #166534);
+  color: white;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
 .home-title {
-  color: white;
   font-size: 2rem;
 }
-
-/* =========================
-   HEADER BUTTONS
-========================= */
-.header-actions {
-  display: flex;
-  gap: 10px;
-}
-
+/* ===== BUTTONS ===== */
 .btn {
-  padding: 10px 16px;
-  border-radius: 10px;
+  padding: 10px 18px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   font-weight: bold;
-}
-
-.btn.pink {
-  background: #ec4899;
-  color: white;
+  transition: all 0.3s ease;
 }
 
 .btn.orange {
   background: #f97316;
+  color: white;
+}
+
+.btn.pink {
+  background: #ec4899;
   color: white;
 }
 
@@ -72,359 +62,59 @@ body {
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
-
-/* =========================
-   SEARCH BAR
-========================= */
-.search-box {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
+/* ===== SEARCH ===== */
 .search-box input {
   width: 100%;
   max-width: 500px;
-  padding: 15px;
+  padding: 14px;
   border-radius: 30px;
-  border: 2px solid #2563eb;
+  border: 2px solid #f97316;
   font-size: 16px;
+  transition: all 0.3s ease;
 }
 
-/* =========================
-   CATEGORY TABS
-========================= */
-.category-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 35px;
+.search-box input:focus {
+  outline: none;
+  border-color: #ec4899;
+  box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2);
 }
-
-.tab {
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: 2px solid #c7d2fe;
-  background: white;
-  cursor: pointer;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-
-.tab.active {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: white;
-  border-color: #16a34a;
-}
-
-/* =========================
-   ITEMS GRID
-========================= */
+/* ===== GRID USING FLEXBOX ===== */
 .items-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
   justify-content: center;
+  gap: 25px;
 }
-
-/* =========================
-   ITEM CARD
-========================= */
+/* ===== ITEM CARD ===== */
 .item-card {
   width: 280px;
   background: white;
   padding: 20px;
   border-radius: 18px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-  position: relative;
-  border-left: 6px solid #2563eb;
+  border-left: 6px solid #f97316;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
 }
 
 .item-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+}
+/* ===== FADE IN ANIMATION ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* =========================
-   FAVORITE HEART
-========================= */
-.heart {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #ccc;
-}
-
-.heart.liked {
-  color: #ec4899;
-}
-
-/* =========================
-   CATEGORY BADGE
-========================= */
-.badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: #e0f2f1;
-  color: #065f46;
-  padding: 4px 10px;
-  font-size: 12px;
-  border-radius: 6px;
-  font-weight: bold;
-}
-
-/* =========================
-   PRICE DISPLAY
-========================= */
-.price {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.price .old {
-  text-decoration: line-through;
-  color: #9ca3af;
-}
-
-.price .new {
-  color: #16a34a;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-/* =========================
-   EXTRA INFO
-========================= */
-.location {
-  font-size: 0.85rem;
-  color: #555;
-}
-
-.stock {
-  font-weight: bold;
-  margin: 12px 0;
-}
-
-/* =========================
-   BUY BUTTON
-========================= */
-.buy-btn {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: white;
-  border-radius: 10px;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.buy-btn:hover {
-  background: linear-gradient(135deg, #16a34a, #15803d);
-}
-
-/* =========================
-   LOGIN / REGISTER PAGE
-========================= */
-
-/* Center the auth card nicely */
-.auth-box,
-.login-container,
-.register-container {
-  background: white;
-  border-radius: 20px;
-  padding: 35px;
-  max-width: 420px;
-  margin: 80px auto;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
-}
-
-/* Heading */
-.auth-box h1,
-.auth-box h2,
-.login-container h1 {
-  color: #1e40af; /* BLUE */
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-/* Subtitle */
-.auth-box p {
-  color: #475569;
-}
-
-/* Input fields */
-.auth-box input,
-.login-container input {
-  width: 100%;
-  padding: 14px;
-  margin-top: 12px;
-  border-radius: 10px;
-  border: 2px solid #c7d2fe;
-  font-size: 15px;
-}
-
-/* Focus effect */
-.auth-box input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-/* Login / Register button */
-.auth-box button,
-.login-container button {
-  width: 100%;
-  margin-top: 20px;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, #2563eb, #9333ea);
-  color: white;
-  font-weight: bold;
-}
-
-/* Button hover */
-.auth-box button:hover {
-  transform: translateY(-2px);
-  opacity: 0.95;
-}
-
-/* Link */
-.auth-box a {
-  color: #2563eb;
-  font-weight: bold;
-  text-decoration: none;
-}
-/* =========================
-   AUTH (LOGIN / REGISTER)
-========================= */
-.auth-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 420px;
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.auth-title {
-  font-size: 2.2rem;
-  color: #1e40af; /* BLUE */
-  margin-bottom: 5px;
-}
-
-.auth-subtitle {
-  color: #475569;
-  margin-bottom: 30px;
-}
-
-.auth-card input {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  border: 2px solid #c7d2fe;
-  font-size: 15px;
-}
-
-.auth-card input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-.auth-btn {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  color: white;
-  background: linear-gradient(135deg, #2563eb, #9333ea);
-}
-
-.auth-btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.95;
-}
-
-.auth-footer {
-  margin-top: 20px;
-  color: #475569;
-}
-
-.auth-footer a {
-  color: #2563eb;
-  font-weight: bold;
-  text-decoration: none;
-}
-/* =========================================
-   FORCE OVERRIDE LOGIN PAGE (EMERGENCY FIX)
-   This overrides inline & existing styles
-========================================= */
-
-/* Background */
-body {
-  background: linear-gradient(135deg, #e0f2fe, #fdf2f8) !important;
-}
-
-/* Login card */
-form {
-  border-radius: 20px !important;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Heading */
-h1 {
-  color: #1e40af !important;   /* FORCE BLUE */
-  font-size: 2.2rem !important;
-}
-
-/* Subtitle */
-p {
-  color: #475569 !important;
-}
-
-/* Inputs */
-input {
-  border-radius: 10px !important;
-  border: 2px solid #c7d2fe !important;
-  padding: 14px !important;
-}
-
-/* Login button – FORCE CHANGE */
-button {
-  background: linear-gradient(135deg, #2563eb, #9333ea) !important;
-  color: white !important;
-  font-size: 16px !important;
-  font-weight: bold !important;
-  border-radius: 12px !important;
-}
-
-/* Register link */
-a {
-  color: #2563eb !important;
-  font-weight: bold !important;
+.item-card {
+  animation: fadeUp 0.6s ease forwards;
 }
