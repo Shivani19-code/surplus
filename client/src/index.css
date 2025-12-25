@@ -2,7 +2,11 @@
    GLOBAL BACKGROUND
 ========================= */
 body {
-  background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
+  background:body {
+  background: red !important;
+}
+
+
   font-family: 'Segoe UI', Arial, sans-serif;
   color: #1f2937;
 }
