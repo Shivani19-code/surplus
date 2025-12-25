@@ -98,3 +98,77 @@ input {
   border-radius: 16px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
+/* =============================
+   GLOBAL LOOK & FEEL
+============================= */
+body {
+  background: linear-gradient(135deg, #f1f5ff, #f9fafb);
+}
+
+/* Smooth effect for everything */
+* {
+  transition: all 0.25s ease;
+}
+
+/* =============================
+   PAGE WRAPPER
+============================= */
+.page {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* =============================
+   HEADER BEAUTIFICATION
+============================= */
+.home-header {
+  background: white;
+  padding: 20px 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* =============================
+   BUTTON HOVER EFFECTS
+============================= */
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+/* =============================
+   SEARCH BAR IMPROVEMENT
+============================= */
+.search-box input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* =============================
+   CATEGORY TAB EFFECTS
+============================= */
+.tab:hover {
+  background: #e8f0fe;
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+}
+
+/* =============================
+   CARD HOVER ANIMATION
+============================= */
+.item-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* =============================
+   BUY BUTTON EFFECT
+============================= */
+.buy-btn:hover {
+  background: #1b5e20;
+}
+
