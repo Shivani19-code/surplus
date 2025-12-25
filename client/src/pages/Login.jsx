@@ -13,8 +13,7 @@ function Login() {
       const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
       localStorage.setItem('userId', res.data.userId);
       localStorage.setItem('userType', res.data.userType);
-      
-      // Redirect based on user type
+
       if (res.data.userType === 'restaurant') {
         navigate('/dashboard');
       } else {
@@ -26,38 +25,33 @@ function Login() {
   };
 
   return (
-    // The 'container' class here centers it and applies general padding
-    <div className="container" style={{ minHeight: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      {/* This inline style makes it look like a card */}
-      <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: '400px', backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-        <h1 style={{ marginTop: 0, fontSize: '2rem' }}>Welcome Back 👋</h1>
-        <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>Login to continue</p>
-        
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <input 
-            type="email" 
-            placeholder="Email Address" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required
-            style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }}
-            />
-            <input 
-            type="password" 
-            placeholder="Password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required
-            style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }}
-            />
-        </div>
+    <div className="auth-page">
+      <form className="auth-card" onSubmit={handleLogin}>
+        <h1 className="auth-title">Welcome Back 👋</h1>
+        <p className="auth-subtitle">Login to continue</p>
 
-        <button type="submit" style={{ marginTop: '20px', width: '100%', padding: '12px', backgroundColor: '#2e7d32', color: 'white', fontSize: '1.1rem' }}>
+        <input
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <button type="submit" className="auth-btn">
           Login
         </button>
-        
-        <p style={{ textAlign: 'center', marginTop: '20px', color: '#666' }}>
-          New user? <Link to="/register" style={{ color: '#2e7d32', fontWeight: 'bold', textDecoration: 'none' }}>Register here</Link>
+
+        <p className="auth-footer">
+          New user? <Link to="/register">Register here</Link>
         </p>
       </form>
     </div>
