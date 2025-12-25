@@ -1,68 +1,100 @@
-/* client/src/index.css */
-
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* Force these colors */
-  color-scheme: light; 
-  color: #213547;
-  background-color: #ffffff;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* FORCE WHITE BACKGROUND ON THE WHOLE PAGE */
-body {
+/* ===============================
+   GLOBAL RESET
+================================ */
+* {
   margin: 0;
-  display: block; /* Fixes centering issues */
-  place-items: start; /* Fixes centering issues */
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #f4f6f8 !important; /* Light Gray */
-  color: #333 !important; /* Dark Text */
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* ===============================
+   BODY STYLING
+================================ */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  color: #1f2933;
+}
+
+/* ===============================
+   PAGE CONTAINER
+================================ */
+.page {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===============================
+   HEADINGS
+================================ */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color: #2e7d32; /* Green */
-  text-align: center;
+  font-size: 34px;
+  margin-bottom: 15px;
+  color: #1e40af;
 }
 
-/* BUTTONS */
+h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #1e3a8a;
+}
+
+/* ===============================
+   CARD STYLE
+================================ */
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #f9f9f9; /* Light button default */
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: border-color 0.25s;
+  font-size: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-  border-color: #646cff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(37,99,235,0.4);
 }
 
-/* CARD STYLING */
-div[style*="border"] {
-  background-color: white !important;
-  color: black !important;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* INPUT FORMS */
+/* ===============================
+   INPUTS (LOGIN / REGISTER)
+================================ */
 input {
-  background-color: white !important;
-  color: black !important;
-  border: 1px solid #ccc !important;
+  width: 100%;
   padding: 10px;
-  border-radius: 5px;
+  margin: 10px 0 15px;
+  border-radius: 8px;
+  border: 1px solid #c7d2fe;
+}
+
+/* ===============================
+   AUTH BOX
+================================ */
+.auth-box {
+  max-width: 400px;
+  margin: 70px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
