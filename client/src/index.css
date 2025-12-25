@@ -380,3 +380,51 @@ body {
   font-weight: bold;
   text-decoration: none;
 }
+/* =========================================
+   FORCE OVERRIDE LOGIN PAGE (EMERGENCY FIX)
+   This overrides inline & existing styles
+========================================= */
+
+/* Background */
+body {
+  background: linear-gradient(135deg, #e0f2fe, #fdf2f8) !important;
+}
+
+/* Login card */
+form {
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Heading */
+h1 {
+  color: #1e40af !important;   /* FORCE BLUE */
+  font-size: 2.2rem !important;
+}
+
+/* Subtitle */
+p {
+  color: #475569 !important;
+}
+
+/* Inputs */
+input {
+  border-radius: 10px !important;
+  border: 2px solid #c7d2fe !important;
+  padding: 14px !important;
+}
+
+/* Login button – FORCE CHANGE */
+button {
+  background: linear-gradient(135deg, #2563eb, #9333ea) !important;
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  border-radius: 12px !important;
+}
+
+/* Register link */
+a {
+  color: #2563eb !important;
+  font-weight: bold !important;
+}
