@@ -100,109 +100,111 @@ function Home() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      
-      {/* Header Section */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1 style={{ margin: 0, fontSize: '2rem' }}>Campus Marketplace 🛒</h1>
-        <div>
-           <button onClick={() => navigate('/my-favorites')} style={{ marginRight: '10px', backgroundColor: '#e91e63' }}>Favorites ❤️</button>
-           <button onClick={() => navigate('/my-orders')} style={{ marginRight: '10px', backgroundColor: 'orange' }}>Orders</button>
-           <button onClick={handleLogout} style={{ backgroundColor: '#333' }}>Logout</button>
-        </div>
-      </div>
+  <div className="page">
 
-      {/* --- SEARCH BAR --- */}
-      <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-        <input 
-          type="text" 
-          placeholder="Search for items..." 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ width: '100%', maxWidth: '500px', padding: '15px', borderRadius: '30px', border: '1px solid #ddd', fontSize: '16px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
-        />
-      </div>
+    {/* Header */}
+    <div className="home-header">
+      <h1 className="home-title">Campus Marketplace 🛒</h1>
 
-      {/* --- CATEGORY TABS --- */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '30px' }}>
-        {['all', 'food', 'electronics', 'clothing', 'other'].map((cat) => (
-          <button 
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            style={{ 
-              backgroundColor: selectedCategory === cat ? '#2e7d32' : 'white', 
-              color: selectedCategory === cat ? 'white' : '#333', 
-              border: '1px solid #ddd',
-              borderRadius: '20px',
-              padding: '10px 20px',
-              textTransform: 'capitalize',
-              fontWeight: 'bold',
-              boxShadow: selectedCategory === cat ? '0 4px 6px rgba(46, 125, 50, 0.3)' : 'none'
-            }}
-          >
-            {cat === 'all' ? 'All Items' : cat}
-          </button>
-        ))}
-      </div>
+      <div className="header-actions">
+        <button
+          className="btn pink"
+          onClick={() => navigate('/my-favorites')}
+        >
+          Favorites ❤️
+        </button>
 
-      {/* Item Grid */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '25px', justifyContent: 'center' }}>
-        {filteredListings.length === 0 ? (
-          <p style={{ fontSize: '18px', color: 'gray' }}>No items found.</p>
-        ) : (
-          filteredListings.map((item) => (
-            <div key={item._id} style={{ 
-              border: 'none', padding: '20px', borderRadius: '15px', width: '280px', 
-              backgroundColor: 'white', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-              position: 'relative'
-            }}>
-              {/* HEART ICON */}
-              <button 
-                onClick={() => handleToggleFavorite(item)}
-                style={{ 
-                  position: 'absolute', top: '15px', right: '15px', 
-                  backgroundColor: 'transparent', border: 'none', padding: 0, fontSize: '1.5rem',
-                  color: favorites.includes(item._id) ? '#e91e63' : '#ccc', 
-                  cursor: 'pointer', boxShadow: 'none'
-                }}
-              >
-                {favorites.includes(item._id) ? '❤️' : '🤍'}
-              </button>
+        <button
+          className="btn orange"
+          onClick={() => navigate('/my-orders')}
+        >
+          Orders
+        </button>
 
-              {/* Category Badge */}
-              <span style={{ 
-                position: 'absolute', top: '15px', left: '15px', 
-                backgroundColor: '#e0f2f1', color: '#00695c', 
-                padding: '4px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' 
-              }}>
-                {item.category ? item.category.toUpperCase() : 'FOOD'}
-              </span>
-
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '10px', marginTop: '30px' }}>{item.title}</h3>
-              
-              <div style={{ display: 'flex', gap: '10px', alignItems: 'center', margin: '10px 0' }}>
-                 <span style={{ textDecoration: 'line-through', color: 'gray' }}>${item.originalPrice}</span>
-                 <span style={{ color: 'green', fontWeight: 'bold', fontSize: '1.2rem' }}>${item.discountedPrice}</span>
-              </div>
-              
-              <p style={{ color: '#666', fontSize: '0.9rem' }}>📍 Pickup: {item.pickupTime}</p>
-              
-              {/* --- NEW: DISPLAY SHOP ADDRESS --- */}
-              <p style={{ color: '#555', fontSize: '0.85rem', marginTop: '-5px' }}>
-                 🏠 <strong>Location:</strong> {item.restaurantId?.address || "Address not listed"}
-              </p>
-
-              <p style={{ marginBottom: '15px', fontWeight: 'bold' }}>📦 {item.quantity} left</p>
-              
-              <button onClick={() => handleBuy(item)} style={{ width: '100%', padding: '12px', backgroundColor: '#2e7d32', color: 'white', border: 'none', borderRadius: '8px' }}>
-                Add to Cart
-              </button>
-            </div>
-          ))
-        )}
+        <button
+          className="btn dark"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
       </div>
     </div>
-  );
+
+    {/* Search */}
+    <div className="search-box">
+      <input
+        type="text"
+        placeholder="Search for items..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+    </div>
+
+    {/* Categories */}
+    <div className="category-tabs">
+      {['all', 'food', 'electronics', 'clothing', 'other'].map((cat) => (
+        <button
+          key={cat}
+          className={`tab ${selectedCategory === cat ? 'active' : ''}`}
+          onClick={() => setSelectedCategory(cat)}
+        >
+          {cat === 'all' ? 'All Items' : cat}
+        </button>
+      ))}
+    </div>
+
+    {/* Items Grid */}
+    <div className="items-grid">
+      {filteredListings.length === 0 ? (
+        <p className="empty-text">No items found.</p>
+      ) : (
+        filteredListings.map((item) => (
+          <div className="item-card" key={item._id}>
+
+            {/* Favorite */}
+            <button
+              className={`heart ${favorites.includes(item._id) ? 'liked' : ''}`}
+              onClick={() => handleToggleFavorite(item)}
+            >
+              {favorites.includes(item._id) ? '❤️' : '🤍'}
+            </button>
+
+            {/* Category */}
+            <span className="badge">
+              {item.category ? item.category.toUpperCase() : 'FOOD'}
+            </span>
+
+            <h3>{item.title}</h3>
+
+            <div className="price">
+              <span className="old">${item.originalPrice}</span>
+              <span className="new">${item.discountedPrice}</span>
+            </div>
+
+            <p>📍 Pickup: {item.pickupTime}</p>
+
+            <p className="location">
+              🏠 <strong>Location:</strong>{' '}
+              {item.restaurantId?.address || 'Not listed'}
+            </p>
+
+            <p className="stock">📦 {item.quantity} left</p>
+
+            <button
+              className="buy-btn"
+              onClick={() => handleBuy(item)}
+            >
+              Add to Cart
+            </button>
+
+          </div>
+        ))
+      )}
+    </div>
+
+  </div>
+);
+
 }
 
 export default Home;
