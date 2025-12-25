@@ -1,174 +1,227 @@
-/* ===============================
-   GLOBAL RESET
-================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ===============================
-   BODY STYLING
-================================ */
+/* =========================
+   GLOBAL BACKGROUND
+========================= */
 body {
+  background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
-  color: #1f2933;
+  color: #1f2937;
 }
 
-/* ===============================
-   PAGE CONTAINER
-================================ */
+/* =========================
+   MAIN PAGE CONTAINER
+========================= */
 .page {
-  padding: 30px;
   max-width: 1200px;
-  margin: auto;
-}
-
-/* ===============================
-   HEADINGS
-================================ */
-h1 {
-  font-size: 34px;
-  margin-bottom: 15px;
-  color: #1e40af;
-}
-
-h2 {
-  font-size: 22px;
-  margin-bottom: 10px;
-  color: #1e3a8a;
-}
-
-/* ===============================
-   CARD STYLE
-================================ */
-.card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-}
-
-/* ===============================
-   BUTTONS
-================================ */
-button {
-  background: linear-gradient(135deg, #2563eb, #1e40af);
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(37,99,235,0.4);
-}
-
-/* ===============================
-   INPUTS (LOGIN / REGISTER)
-================================ */
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0 15px;
-  border-radius: 8px;
-  border: 1px solid #c7d2fe;
-}
-
-/* ===============================
-   AUTH BOX
-================================ */
-.auth-box {
-  max-width: 400px;
-  margin: 70px auto;
-  background: white;
+  margin: 30px auto;
   padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-}
-/* =============================
-   GLOBAL LOOK & FEEL
-============================= */
-body {
-  background: linear-gradient(135deg, #f1f5ff, #f9fafb);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 24px;
 }
 
-/* Smooth effect for everything */
-* {
-  transition: all 0.25s ease;
-}
-
-/* =============================
-   PAGE WRAPPER
-============================= */
-.page {
-  padding: 30px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-/* =============================
-   HEADER BEAUTIFICATION
-============================= */
+/* =========================
+   HEADER SECTION
+========================= */
 .home-header {
-  background: white;
-  padding: 20px 25px;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  background: linear-gradient(135deg, #2563eb, #9333ea);
+  padding: 25px 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-/* =============================
-   BUTTON HOVER EFFECTS
-============================= */
+.home-title {
+  color: white;
+  font-size: 2rem;
+}
+
+/* =========================
+   HEADER BUTTONS
+========================= */
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn.pink {
+  background: #ec4899;
+  color: white;
+}
+
+.btn.orange {
+  background: #f97316;
+  color: white;
+}
+
+.btn.dark {
+  background: #111827;
+  color: white;
+}
+
 .btn:hover {
   transform: translateY(-2px);
-  opacity: 0.95;
+  opacity: 0.9;
 }
 
-/* =============================
-   SEARCH BAR IMPROVEMENT
-============================= */
-.search-box input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+/* =========================
+   SEARCH BAR
+========================= */
+.search-box {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-/* =============================
-   CATEGORY TAB EFFECTS
-============================= */
-.tab:hover {
-  background: #e8f0fe;
+.search-box input {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 30px;
+  border: 2px solid #2563eb;
+  font-size: 16px;
+}
+
+/* =========================
+   CATEGORY TABS
+========================= */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.tab {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 2px solid #c7d2fe;
+  background: white;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 .tab.active {
-  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border-color: #16a34a;
 }
 
-/* =============================
-   CARD HOVER ANIMATION
-============================= */
+/* =========================
+   ITEMS GRID
+========================= */
+.items-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+/* =========================
+   ITEM CARD
+========================= */
+.item-card {
+  width: 280px;
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  position: relative;
+  border-left: 6px solid #2563eb;
+}
+
 .item-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
-/* =============================
-   BUY BUTTON EFFECT
-============================= */
+/* =========================
+   FAVORITE HEART
+========================= */
+.heart {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.heart.liked {
+  color: #ec4899;
+}
+
+/* =========================
+   CATEGORY BADGE
+========================= */
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #e0f2f1;
+  color: #065f46;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* =========================
+   PRICE DISPLAY
+========================= */
+.price {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.price .old {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.price .new {
+  color: #16a34a;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* =========================
+   EXTRA INFO
+========================= */
+.location {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.stock {
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+/* =========================
+   BUY BUTTON
+========================= */
+.buy-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
 .buy-btn:hover {
-  background: #1b5e20;
+  background: linear-gradient(135deg, #16a34a, #15803d);
 }
-
